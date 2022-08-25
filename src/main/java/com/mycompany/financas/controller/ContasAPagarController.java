@@ -34,12 +34,12 @@ public class ContasAPagarController {
         return ResponseEntity.ok(contasAPagarService.buscarPorId(id));
     }
     @GetMapping(path = "/pesquisarstatus/conta")
-    public ResponseEntity<List<ContasAPagarModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum){
-        return ResponseEntity.ok(contasAPagarService.buscarPorStatus(StatusEnum.valueOf("AGUARDANDO", "PAGO", "VENCIDA")));
+    public ResponseEntity<List<ContasAPagarModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum status ){
+        return ResponseEntity.ok(contasAPagarService.buscarPorStatus(status));
     }
     @GetMapping(path = "/pesquisartipo/conta")
-    public ResponseEntity<List<ContasAPagarModel>> buscarPorTipo(@RequestParam(value = "tipo", defaultValue = "", required = true) TipoEnum){
-        return ResponseEntity.ok(contasAPagarService.buscarPorTipo(TipoEnum.valueOf("LUZ", "AGUA", "COMIDA", "LAZER", "OUTROS")));
+    public ResponseEntity<List<ContasAPagarModel>> buscarPorTipo(@RequestParam(value = "tipo", defaultValue = "", required = true) TipoEnum tipo ){
+        return ResponseEntity.ok(contasAPagarService.buscarPorTipo(tipo));
     }
     @DeleteMapping(path = "/excluir/conta/{id}")
     public void excluirContaPorId(@PathVariable Long id){

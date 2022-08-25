@@ -2,6 +2,8 @@ package com.mycompany.financas.service;
 
 import com.mycompany.financas.model.ContasAPagarModel;
 import com.mycompany.financas.model.DadosContaModel;
+import com.mycompany.financas.model.StatusEnum;
+import com.mycompany.financas.model.TipoEnum;
 import com.mycompany.financas.repository.ContasAPagarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,11 @@ public class ContasAPagarService {
     public Optional<ContasAPagarModel>buscarPorId(Long id){
         return contasAPagarRepository.findById(id);
     }
-    public List<ContasAPagarModel>buscarPorStatus(String status){
-        return contasAPagarRepository.findByStatusIgnoreCase(status);
+    public List<ContasAPagarModel>buscarPorStatus(StatusEnum status){
+        return contasAPagarRepository.findByStatus(status);
     }
-    public List<ContasAPagarModel> buscarPorTipo(String tipo){
-        return contasAPagarRepository.findByTipoIgnoreCase(tipo);
+    public List<ContasAPagarModel> buscarPorTipo(TipoEnum tipo){
+        return contasAPagarRepository.findByTipo(tipo);
     }
     public void excluirPorId(Long id){
         contasAPagarRepository.deleteById(id);

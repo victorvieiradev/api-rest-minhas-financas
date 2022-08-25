@@ -19,13 +19,13 @@ public class ContasAPagarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "{nome.not.blank}")
+    //@NotBlank(message = "{nome.not.blank}")
     private String nome;
-    @NotBlank(message = "{valor.not.blank}")
+    //@NotBlank(message = "{valor.not.blank}")
     private double valor;
     private TipoEnum tipo;
     private StatusEnum status;
-    @NotBlank(message = "{dataDeVencimento.not.blank}")
+    //@NotBlank(message = "{dataDeVencimento.not.blank}")
     private LocalDate dataDeVencimento;
     private LocalDateTime dataDePagamento;
 
