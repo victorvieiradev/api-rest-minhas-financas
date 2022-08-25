@@ -24,24 +24,30 @@ public class ContasAPagarController {
         ContasAPagarModel conta = contasAPagarService.cadastrarNovaConta(dados);
         return new ResponseEntity<>(conta, HttpStatus.CREATED);
     }
+    @PutMapping(path = "/conta/{id}")
+    public ResponseEntity<ContasAPagarModel> editarConta(@RequestBody DadosContaModel dados ){
+        dados.getId();
+        ContasAPagarModel conta = contasAPagarService.editarConta(dados);
+        return new ResponseEntity<>(conta, HttpStatus.CREATED);
+    }
 
-    @GetMapping(path = "/detalhar/contas")
+    @GetMapping(path = "/conta")
     public ResponseEntity<List<ContasAPagarModel>>buscarContasDetalhadas(){
         return ResponseEntity.ok(contasAPagarService.buscarTodos());
     }
-    @GetMapping(path = "/buscar/conta/{id}")
+    @GetMapping(path = "/conta/{id}")
     public ResponseEntity<Optional<ContasAPagarModel>> buscarPorId(@PathVariable Long id){
         return ResponseEntity.ok(contasAPagarService.buscarPorId(id));
     }
-    @GetMapping(path = "/pesquisarstatus/conta")
+    @GetMapping(path = "/conta/search")
     public ResponseEntity<List<ContasAPagarModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum status ){
         return ResponseEntity.ok(contasAPagarService.buscarPorStatus(status));
     }
-    @GetMapping(path = "/pesquisartipo/conta")
+    @GetMapping(path = "/conta/search/tipo")
     public ResponseEntity<List<ContasAPagarModel>> buscarPorTipo(@RequestParam(value = "tipo", defaultValue = "", required = true) TipoEnum tipo ){
         return ResponseEntity.ok(contasAPagarService.buscarPorTipo(tipo));
     }
-    @DeleteMapping(path = "/excluir/conta/{id}")
+    @DeleteMapping(path = "/conta/{id}")
     public void excluirContaPorId(@PathVariable Long id){
         contasAPagarService.excluirPorId(id);
     }

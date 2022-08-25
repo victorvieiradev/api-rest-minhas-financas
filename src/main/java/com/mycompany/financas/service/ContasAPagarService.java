@@ -21,6 +21,10 @@ public class ContasAPagarService {
         ContasAPagarModel conta = contasAPagarFactory.novaConta(dados);
         return contasAPagarRepository.save(conta);
     }
+    public ContasAPagarModel editarConta(DadosContaModel dados ){
+        ContasAPagarModel conta = contasAPagarFactory.novaConta(dados);
+        return contasAPagarRepository.save(conta);
+    }
     public List<ContasAPagarModel>buscarTodos(){
         return contasAPagarRepository.findAll();
     }
