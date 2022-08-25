@@ -3,6 +3,8 @@ package com.mycompany.financas.controller;
 import com.mycompany.financas.model.ContasAPagarModel;
 import com.mycompany.financas.model.DadosContaModel;
 
+import com.mycompany.financas.model.StatusEnum;
+import com.mycompany.financas.model.TipoEnum;
 import com.mycompany.financas.service.ContasAPagarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,12 +34,12 @@ public class ContasAPagarController {
         return ResponseEntity.ok(contasAPagarService.buscarPorId(id));
     }
     @GetMapping(path = "/pesquisarstatus/conta")
-    public ResponseEntity<List<ContasAPagarModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) String status){
-        return ResponseEntity.ok(contasAPagarService.buscarPorStatus(status));
+    public ResponseEntity<List<ContasAPagarModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum){
+        return ResponseEntity.ok(contasAPagarService.buscarPorStatus(StatusEnum.valueOf("AGUARDANDO", "PAGO", "VENCIDA")));
     }
     @GetMapping(path = "/pesquisartipo/conta")
-    public ResponseEntity<List<ContasAPagarModel>> buscarPorTipo(@RequestParam(value = "tipo", defaultValue = "", required = true) String tipo){
-        return ResponseEntity.ok(contasAPagarService.buscarPorTipo(tipo));
+    public ResponseEntity<List<ContasAPagarModel>> buscarPorTipo(@RequestParam(value = "tipo", defaultValue = "", required = true) TipoEnum){
+        return ResponseEntity.ok(contasAPagarService.buscarPorTipo(TipoEnum.valueOf("LUZ", "AGUA", "COMIDA", "LAZER", "OUTROS")));
     }
     @DeleteMapping(path = "/excluir/conta/{id}")
     public void excluirContaPorId(@PathVariable Long id){
