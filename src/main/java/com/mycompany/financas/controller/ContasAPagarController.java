@@ -1,8 +1,11 @@
 package com.mycompany.financas.controller;
 
 import com.mycompany.financas.model.ContasAPagarModel;
+import com.mycompany.financas.model.DadosContaModel;
+
 import com.mycompany.financas.service.ContasAPagarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,12 @@ import java.util.Optional;
 public class ContasAPagarController {
     @Autowired
     private ContasAPagarService contasAPagarService;
+    @PostMapping(path = "/conta")
+    public ResponseEntity<ContasAPagarModel> cadastrarNovaConta(@RequestBody DadosContaModel dados ){
+        ContasAPagarModel conta = contasAPagarService.cadastrarNovaConta(dados);
+        return new ResponseEntity<>(conta, HttpStatus.CREATED);
+    }
+
     @GetMapping(path = "/detalhar/contas")
     public ResponseEntity<List<ContasAPagarModel>>buscarContasDetalhadas(){
         return ResponseEntity.ok(contasAPagarService.buscarTodos());

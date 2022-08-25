@@ -1,6 +1,7 @@
 package com.mycompany.financas.service;
 
 import com.mycompany.financas.model.ContasAPagarModel;
+import com.mycompany.financas.model.DadosContaModel;
 import com.mycompany.financas.repository.ContasAPagarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,12 @@ import java.util.Optional;
 public class ContasAPagarService {
     @Autowired
     private ContasAPagarRepository contasAPagarRepository;
-
+    @Autowired
+    private ContasAPagarFactory contasAPagarFactory;
+    public ContasAPagarModel cadastrarNovaConta(DadosContaModel dados ){
+        ContasAPagarModel conta = contasAPagarFactory.novaConta(dados);
+        return contasAPagarRepository.save(conta);
+    }
     public List<ContasAPagarModel>buscarTodos(){
         return contasAPagarRepository.findAll();
     }
