@@ -7,12 +7,14 @@ import com.mycompany.financas.model.TipoEnum;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class ContasAPagarFactory {
     public ContasAPagarModel novaConta(DadosContaModel dados ){
-dados.setTipo(this.avaliarTipo(dados.getTipo()));
-dados.setStatus(this.avaliarStatus(dados.getDataDeVencimento()));
+        dados.setDataDePagamento(this.avaliarPagamento(dados.getStatus()));
+        dados.setTipo(this.avaliarTipo(dados.getTipo()));
+        dados.setStatus(this.avaliarStatus(dados.getDataDeVencimento()));
         return new ContasAPagarModel(dados.getId(), dados.getNome(), dados.getValor(), dados.getTipo(), dados.getStatus(), dados.getDataDeVencimento(), dados.getDataDePagamento());
     }
     public StatusEnum avaliarStatus(LocalDate dataDeVencimento){
@@ -26,6 +28,13 @@ dados.setStatus(this.avaliarStatus(dados.getDataDeVencimento()));
     public TipoEnum avaliarTipo(TipoEnum tipo ){
         if (tipo == null){
             return TipoEnum.OUTROS;
+        }
+        return null;
+    }
+    public LocalDateTime avaliarPagamento(StatusEnum status ){
+
+        if (status == StatusEnum.valueOf("PAGO")){
+            return LocalDateTime.now();
         }
         return null;
     }

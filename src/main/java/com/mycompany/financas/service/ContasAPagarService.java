@@ -32,7 +32,7 @@ public class ContasAPagarService {
             conta.setValor(dados.getValor());
             conta.setTipo(contasAPagarFactory.avaliarTipo(dados.getTipo()));
             conta.setStatus(contasAPagarFactory.avaliarStatus(dados.getDataDeVencimento()));
-            conta.setDataDePagamento(dados.getDataDePagamento());
+            conta.setDataDePagamento(contasAPagarFactory.avaliarPagamento(dados.getStatus()));
             conta.setDataDeVencimento(dados.getDataDeVencimento());
             return contasAPagarRepository.save(conta);
         }
