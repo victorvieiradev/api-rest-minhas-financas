@@ -1,9 +1,8 @@
 package com.mycompany.financas.repository;
-
 import com.mycompany.financas.model.ContasAPagarModel;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository

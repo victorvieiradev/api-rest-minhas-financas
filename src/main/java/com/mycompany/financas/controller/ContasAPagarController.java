@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class ContasAPagarController {
     @Autowired
     private ContasAPagarService contasAPagarService;
     @PostMapping(path = "/conta")
-    public ResponseEntity<ContasAPagarModel> cadastrarNovaConta(@RequestBody DadosContaModel dados ){
+    public ResponseEntity<ContasAPagarModel> cadastrarNovaConta(@RequestBody @Valid DadosContaModel dados ){
         ContasAPagarModel conta = contasAPagarService.cadastrarNovaConta(dados);
         return new ResponseEntity<>(conta, HttpStatus.CREATED);
     }
