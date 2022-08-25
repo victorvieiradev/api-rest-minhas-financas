@@ -1,10 +1,12 @@
 package com.mycompany.financas.service;
 
+import com.mycompany.financas.exception.ContaNaoEncontradaException;
 import com.mycompany.financas.model.ContasAPagarModel;
 import com.mycompany.financas.model.DadosContaModel;
 import com.mycompany.financas.model.StatusEnum;
 import com.mycompany.financas.model.TipoEnum;
 import com.mycompany.financas.repository.ContasAPagarRepository;
+import net.bytebuddy.dynamic.DynamicType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,20 @@ public class ContasAPagarService {
         ContasAPagarModel conta = contasAPagarFactory.novaConta(dados);
         return contasAPagarRepository.save(conta);
     }
-    public ContasAPagarModel editarConta(DadosContaModel dados ){
-        ContasAPagarModel conta = contasAPagarFactory.novaConta(dados);
-        return contasAPagarRepository.save(conta);
+    public ContasAPagarModel editarConta(Long id,  DadosContaModel dados ) throws ContaNaoEncontradaException{
+        //ContasAPagarModel conta = contasAPagarFactory.novaConta(dados);
+        Optional<ContasAPagarModel>  contaBuscada = this.buscarPorId(id);
+        if (contaBuscada.isPresent()){
+            ContasAPagarModel conta = contaBuscada.get();
+            conta.setNome(dados.getNome());
+            conta.setValor(dados.getValor());
+            conta.setTipo(contasAPagarFactory.avaliarTipo(dados.getTipo()));
+            conta.setStatus(contasAPagarFactory.avaliarStatus(dados.getDataDeVencimento()));
+            conta.setDataDePagamento(dados.getDataDePagamento());
+            conta.setDataDeVencimento(dados.getDataDeVencimento());
+            return contasAPagarRepository.save(conta);
+        }
+        throw new ContaNaoEncontradaException("Não encontrei a conta solicitada.");
     }
     public List<ContasAPagarModel>buscarTodos(){
         return contasAPagarRepository.findAll();

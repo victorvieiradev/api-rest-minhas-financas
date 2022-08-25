@@ -11,15 +11,22 @@ import java.time.LocalDate;
 @Service
 public class ContasAPagarFactory {
     public ContasAPagarModel novaConta(DadosContaModel dados ){
-        if (dados.getTipo() == null){
-            dados.setTipo(TipoEnum.OUTROS);
-        }
-        LocalDate hoje = LocalDate.now();
-        if (dados.getDataDeVencimento().isBefore(hoje)){
-            dados.setStatus(StatusEnum.VENCIDA);
-        }else {
-            dados.setStatus(StatusEnum.AGUARDANDO);
-        }
+dados.setTipo(this.avaliarTipo(dados.getTipo()));
+dados.setStatus(this.avaliarStatus(dados.getDataDeVencimento()));
         return new ContasAPagarModel(dados.getId(), dados.getNome(), dados.getValor(), dados.getTipo(), dados.getStatus(), dados.getDataDeVencimento(), dados.getDataDePagamento());
+    }
+    public StatusEnum avaliarStatus(LocalDate dataDeVencimento){
+        LocalDate hoje = LocalDate.now();
+        if (dataDeVencimento.isBefore(hoje)){
+            return StatusEnum.VENCIDA;
+        }else {
+            return StatusEnum.AGUARDANDO;
+        }
+    }
+    public TipoEnum avaliarTipo(TipoEnum tipo ){
+        if (tipo == null){
+            return TipoEnum.OUTROS;
+        }
+        return null;
     }
 }

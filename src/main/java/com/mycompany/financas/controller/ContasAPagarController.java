@@ -1,5 +1,6 @@
 package com.mycompany.financas.controller;
 
+import com.mycompany.financas.exception.ContaNaoEncontradaException;
 import com.mycompany.financas.model.ContasAPagarModel;
 import com.mycompany.financas.model.DadosContaModel;
 
@@ -25,10 +26,14 @@ public class ContasAPagarController {
         return new ResponseEntity<>(conta, HttpStatus.CREATED);
     }
     @PutMapping(path = "/conta/{id}")
-    public ResponseEntity<ContasAPagarModel> editarConta(@RequestBody DadosContaModel dados ){
-        dados.getId();
-        ContasAPagarModel conta = contasAPagarService.editarConta(dados);
-        return new ResponseEntity<>(conta, HttpStatus.CREATED);
+    public ResponseEntity editarConta(@PathVariable Long id, @RequestBody DadosContaModel dados ){
+
+        try{
+            ContasAPagarModel conta = contasAPagarService.editarConta(id, dados);
+            return new ResponseEntity<>(conta, HttpStatus.CREATED);
+        }catch (ContaNaoEncontradaException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping(path = "/conta")
