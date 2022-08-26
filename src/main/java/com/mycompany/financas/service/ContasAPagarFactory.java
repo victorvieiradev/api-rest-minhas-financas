@@ -31,7 +31,7 @@ public class ContasAPagarFactory {
         if (tipo == null){
             return TipoEnum.OUTROS;
         }
-        return null;
+        return tipo;
     }
     public LocalDateTime avaliarPagamento(StatusEnum status ){
 
