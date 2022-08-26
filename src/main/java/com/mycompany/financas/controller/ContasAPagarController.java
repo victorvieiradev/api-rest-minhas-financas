@@ -1,11 +1,8 @@
 package com.mycompany.financas.controller;
 
 import com.mycompany.financas.exception.ContaNaoEncontradaException;
-import com.mycompany.financas.model.ContasAPagarModel;
-import com.mycompany.financas.model.DadosContaModel;
+import com.mycompany.financas.model.*;
 
-import com.mycompany.financas.model.StatusEnum;
-import com.mycompany.financas.model.TipoEnum;
 import com.mycompany.financas.service.ContasAPagarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +33,11 @@ public class ContasAPagarController {
         }
     }
 
+
+    @GetMapping(path = "/listar")
+    public ResponseEntity<List<ExibirConta>> listarContas(){
+        return ResponseEntity.ok(contasAPagarService.listarContas());
+    }
     @GetMapping(path = "/conta")
     public ResponseEntity<List<ContasAPagarModel>>buscarContasDetalhadas(){
         return ResponseEntity.ok(contasAPagarService.buscarTodos());

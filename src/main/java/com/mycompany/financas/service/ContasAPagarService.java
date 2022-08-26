@@ -1,16 +1,13 @@
 package com.mycompany.financas.service;
 
 import com.mycompany.financas.exception.ContaNaoEncontradaException;
-import com.mycompany.financas.model.ContasAPagarModel;
-import com.mycompany.financas.model.DadosContaModel;
-import com.mycompany.financas.model.StatusEnum;
-import com.mycompany.financas.model.TipoEnum;
+import com.mycompany.financas.model.*;
 import com.mycompany.financas.repository.ContasAPagarRepository;
-import net.bytebuddy.dynamic.DynamicType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +49,10 @@ public class ContasAPagarService {
             return contasAPagarRepository.save(conta);
         }
         throw new ContaNaoEncontradaException("Não encontrei a conta solicitada.");
+    }
+    public List<ExibirConta>listarContas(){
+        List<ContasAPagarModel> conta = contasAPagarRepository.findAll();
+        return ExibirConta.convert(conta);
     }
     public List<ContasAPagarModel>buscarTodos(){
         return contasAPagarRepository.findAll();
