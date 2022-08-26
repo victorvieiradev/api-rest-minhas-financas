@@ -33,11 +33,5 @@ public class ContasAPagarFactory {
         }
         return tipo;
     }
-    public LocalDateTime avaliarPagamento(StatusEnum status ){
 
-        if (status == StatusEnum.PAGO){
-            return LocalDateTime.now();
-        }
-        return null;
-    }
 }

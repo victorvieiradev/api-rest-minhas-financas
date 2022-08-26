@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,12 +44,14 @@ public class ContasAPagarService {
 
             if (dados.getDataDeVencimento() == null){
                 conta.setDataDeVencimento(conta.getDataDeVencimento());
-                conta.setDataDePagamento(contasAPagarFactory.avaliarPagamento(conta.getStatus()));
                 conta.setStatus(contasAPagarFactory.avaliarStatus(conta.getDataDeVencimento(), conta.getStatus()));
             }else {
                 conta.setDataDeVencimento(dados.getDataDeVencimento());
-                conta.setDataDePagamento(contasAPagarFactory.avaliarPagamento(dados.getStatus()));
                 conta.setStatus(contasAPagarFactory.avaliarStatus(dados.getDataDeVencimento(), dados.getStatus()));
+            }
+            if (dados.getStatus() == StatusEnum.PAGO){
+                conta.setDataDePagamento(LocalDateTime.now());
+                conta.setStatus(dados.getStatus());
             }
             return contasAPagarRepository.save(conta);
         }
