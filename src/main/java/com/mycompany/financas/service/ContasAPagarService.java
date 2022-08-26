@@ -22,7 +22,6 @@ public class ContasAPagarService {
         return contasAPagarRepository.save(conta);
     }
     public ContasAPagarModel editarConta(Long id,  DadosContaModel dados ) throws ContaNaoEncontradaException{
-        //ContasAPagarModel conta = contasAPagarFactory.novaConta(dados);
         Optional<ContasAPagarModel>  contaBuscada = this.buscarPorId(id);
         if (contaBuscada.isPresent()){
             ContasAPagarModel conta = contaBuscada.get();
@@ -36,7 +35,12 @@ public class ContasAPagarService {
             }else {
                 conta.setValor(dados.getValor());
             }
-            conta.setTipo(contasAPagarFactory.avaliarTipo(dados.getTipo()));
+            if (dados.getTipo() == null){
+                conta.setTipo(conta.getTipo());
+            }else{
+                conta.setTipo(contasAPagarFactory.avaliarTipo(dados.getTipo()));
+            }
+
             if (dados.getDataDeVencimento() == null){
                 conta.setDataDeVencimento(conta.getDataDeVencimento());
                 conta.setDataDePagamento(contasAPagarFactory.avaliarPagamento(conta.getStatus()));
