@@ -10,6 +10,7 @@ import net.bytebuddy.dynamic.DynamicType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +29,26 @@ public class ContasAPagarService {
         Optional<ContasAPagarModel>  contaBuscada = this.buscarPorId(id);
         if (contaBuscada.isPresent()){
             ContasAPagarModel conta = contaBuscada.get();
-            conta.setNome(dados.getNome());
-            conta.setValor(dados.getValor());
+            if (dados.getNome() == null){
+                conta.setNome(conta.getNome());
+            }else {
+                conta.setNome(dados.getNome());
+            }
+            if (dados.getValor() == 0){
+                conta.setValor(conta.getValor());
+            }else {
+                conta.setValor(dados.getValor());
+            }
             conta.setTipo(contasAPagarFactory.avaliarTipo(dados.getTipo()));
-            conta.setStatus(contasAPagarFactory.avaliarStatus(dados.getDataDeVencimento()));
-            conta.setDataDePagamento(contasAPagarFactory.avaliarPagamento(dados.getStatus()));
-            conta.setDataDeVencimento(dados.getDataDeVencimento());
+            if (dados.getDataDeVencimento() == null){
+                conta.setDataDeVencimento(conta.getDataDeVencimento());
+                conta.setDataDePagamento(contasAPagarFactory.avaliarPagamento(conta.getStatus()));
+                conta.setStatus(contasAPagarFactory.avaliarStatus(conta.getDataDeVencimento(), conta.getStatus()));
+            }else {
+                conta.setDataDeVencimento(dados.getDataDeVencimento());
+                conta.setDataDePagamento(contasAPagarFactory.avaliarPagamento(dados.getStatus()));
+                conta.setStatus(contasAPagarFactory.avaliarStatus(dados.getDataDeVencimento(), dados.getStatus()));
+            }
             return contasAPagarRepository.save(conta);
         }
         throw new ContaNaoEncontradaException("Não encontrei a conta solicitada.");

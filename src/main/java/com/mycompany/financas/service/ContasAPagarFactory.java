@@ -12,17 +12,19 @@ import java.time.LocalDateTime;
 @Service
 public class ContasAPagarFactory {
     public ContasAPagarModel novaConta(DadosContaModel dados ){
-        dados.setDataDePagamento(this.avaliarPagamento(dados.getStatus()));
+
         dados.setTipo(this.avaliarTipo(dados.getTipo()));
-        dados.setStatus(this.avaliarStatus(dados.getDataDeVencimento()));
+        dados.setStatus(this.avaliarStatus(dados.getDataDeVencimento(), dados.getStatus()));
         return new ContasAPagarModel(dados.getId(), dados.getNome(), dados.getValor(), dados.getTipo(), dados.getStatus(), dados.getDataDeVencimento(), dados.getDataDePagamento());
     }
-    public StatusEnum avaliarStatus(LocalDate dataDeVencimento){
+    public StatusEnum avaliarStatus(LocalDate dataDeVencimento, StatusEnum status ){
         LocalDate hoje = LocalDate.now();
-        if (dataDeVencimento.isBefore(hoje)){
+        if (dataDeVencimento.isBefore(hoje) && status != StatusEnum.PAGO){
             return StatusEnum.VENCIDA;
-        }else {
+        }else if (status != StatusEnum.PAGO){
             return StatusEnum.AGUARDANDO;
+        }else {
+            return StatusEnum.PAGO;
         }
     }
     public TipoEnum avaliarTipo(TipoEnum tipo ){
@@ -33,7 +35,7 @@ public class ContasAPagarFactory {
     }
     public LocalDateTime avaliarPagamento(StatusEnum status ){
 
-        if (status == StatusEnum.valueOf("PAGO")){
+        if (status == StatusEnum.PAGO){
             return LocalDateTime.now();
         }
         return null;
