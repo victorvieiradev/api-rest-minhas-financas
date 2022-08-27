@@ -67,8 +67,8 @@ public class ContasAPagarService {
     public List<ContasAPagarModel>buscarTodos(){
         return contasAPagarRepository.findAll();
     }
-    public Optional<ContasAPagarModel>buscarPorId(Long id){
-        return contasAPagarRepository.findById(id);
+    public Optional<ContasAPagarModel>buscarPorId(Long id) {
+        return contasAPagarRepository.findById(id); 
     }
     public List<ContasAPagarModel>buscarPorStatus(StatusEnum status){
         return contasAPagarRepository.findByStatus(status);

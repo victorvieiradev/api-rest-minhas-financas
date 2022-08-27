@@ -55,7 +55,12 @@ public class ContasAPagarController {
     }
     @GetMapping(path = "/conta/{id}")
     public ResponseEntity<Optional<ContasAPagarModel>> buscarPorId(@PathVariable Long id){
-        return ResponseEntity.ok(contasAPagarService.buscarPorId(id));
+        Optional<ContasAPagarModel> contaBuscada = contasAPagarService.buscarPorId(id);
+        if (contaBuscada.isPresent()){
+            ContasAPagarModel conta = contaBuscada.get();
+            return ResponseEntity.ok(contaBuscada);
+        }
+        throw new ObjectNotFoundException("A conta não existe ou ainda não foi registrada ou pode ter sido excluida do registro.");
     }
     @GetMapping(path = "/conta/search")
     public ResponseEntity<List<ContasAPagarModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum status ){
