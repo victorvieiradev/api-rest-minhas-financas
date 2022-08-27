@@ -53,6 +53,9 @@ public class ContasAPagarService {
                 conta.setDataDePagamento(LocalDateTime.now());
                 conta.setStatus(dados.getStatus());
             }
+            if (conta.getDataDePagamento() != null){
+                conta.setStatus(StatusEnum.PAGO);
+            }
             return contasAPagarRepository.save(conta);
         }
         throw new ContaNaoEncontradaException("Não encontrei a conta solicitada.");
