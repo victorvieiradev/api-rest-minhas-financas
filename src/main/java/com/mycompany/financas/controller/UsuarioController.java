@@ -7,12 +7,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @RestController
@@ -32,4 +30,34 @@ public class UsuarioController {
         BeanUtils.copyProperties(usuarioDto, usuarioModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvarUsuario(usuarioModel));
     }
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Object> buscarPorId(@PathVariable(value = "id") Integer id){
+        Optional<UsuarioModel> usuarioModelOptional = usuarioService.buscarPorId(id);
+        if (!usuarioModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioModelOptional.get());
+    }
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> excluir(@PathVariable(value = "id") Integer id ){
+        Optional<UsuarioModel> usuarioModelOptional = usuarioService.buscarPorId(id);
+        if (!usuarioModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+        }
+        usuarioService.excluir(usuarioModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body("O usuário foi excluído com sucesso!");
+    }
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Object> atualizar(@PathVariable(value = "id") Integer id, UsuarioDto usuarioDto ){
+        Optional<UsuarioModel> usuarioModelOptional = usuarioService.buscarPorId(id);
+        if (!usuarioModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O usuário que foi informado para ser atualizado não existe.");
+        }
+        var usuarioModel = new UsuarioModel();
+        BeanUtils.copyProperties(usuarioDto, usuarioModel);
+        usuarioModel.setId(usuarioModelOptional.get().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.salvarUsuario(usuarioModel));
+
+    }
+
 }
