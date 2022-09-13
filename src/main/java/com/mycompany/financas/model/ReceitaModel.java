@@ -11,9 +11,11 @@ public class ReceitaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    //@Column(nullable = false)
     private RecebimentoEnum recebimento;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private double valorRecebimento;
+    //@Column(nullable = false)
     private LocalDate dataDeVencimento;
     private LocalDate dataDeRecebimento;
     private StatusEnum status;

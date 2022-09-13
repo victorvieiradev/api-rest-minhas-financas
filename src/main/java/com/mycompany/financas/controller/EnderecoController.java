@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,6 +23,10 @@ public class EnderecoController {
         var enderecoModel = new EnderecoModel();
         BeanUtils.copyProperties(enderecoDto, enderecoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(enderecoService.salvarEndereco(enderecoModel));
+    }
+    @GetMapping
+    public ResponseEntity<List<EnderecoModel>> exibir(){
+        return ResponseEntity.status(HttpStatus.OK).body(enderecoService.exibir());
     }
     @GetMapping(path = "/{id}")
     public ResponseEntity<Object> buscarPorId(@PathVariable(value = "id") Integer id ){

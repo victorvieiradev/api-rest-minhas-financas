@@ -1,5 +1,6 @@
 package com.mycompany.financas.controller;
 
+import com.mycompany.financas.model.ExibirUsuario;
 import com.mycompany.financas.model.UsuarioDto;
 import com.mycompany.financas.model.UsuarioModel;
 import com.mycompany.financas.service.UsuarioService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,6 +31,10 @@ public class UsuarioController {
         var usuarioModel = new UsuarioModel();
         BeanUtils.copyProperties(usuarioDto, usuarioModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvarUsuario(usuarioModel));
+    }
+    @GetMapping
+    public ResponseEntity<List<ExibirUsuario>> listar(){
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuario());
     }
     @GetMapping(path = "/{id}")
     public ResponseEntity<Object> buscarPorId(@PathVariable(value = "id") Integer id){

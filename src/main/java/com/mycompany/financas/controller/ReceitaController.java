@@ -28,6 +28,11 @@ public class ReceitaController {
         }else if (hoje.isBefore(receitaDto.getDataDeVencimento())){
             receitaDto.setStatus(StatusEnum.EM_DIA);
         }
+        if (receitaDto.getDataDeRecebimento() != null){
+            if (receitaDto.getDataDeRecebimento().isBefore(hoje)){
+                receitaDto.setStatus(StatusEnum.ADIANTADO);
+            }
+        }
         var receitaModel = new ReceitaModel();
         BeanUtils.copyProperties(receitaDto, receitaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(receitaService.salvar(receitaModel));

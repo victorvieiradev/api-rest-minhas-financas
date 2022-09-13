@@ -3,8 +3,9 @@ package com.mycompany.financas.service;
 import com.mycompany.financas.model.RecebimentoEnum;
 import com.mycompany.financas.model.ReceitaModel;
 import com.mycompany.financas.model.StatusEnum;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ReceitaFactory {
     public ReceitaModel desconto(ReceitaModel receitaModel){
         if (receitaModel.getRecebimento() == RecebimentoEnum.ALUGUEL){

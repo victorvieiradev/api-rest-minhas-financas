@@ -1,5 +1,6 @@
 package com.mycompany.financas.service;
 
+import com.mycompany.financas.model.ExibirUsuario;
 import com.mycompany.financas.model.UsuarioModel;
 import com.mycompany.financas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class UsuarioService {
     public boolean existsByCpf(String cpf){
         return usuarioRepository.existsByCpf(cpf);
     }
-    public List<UsuarioModel> listarUsuario(){
-        return usuarioRepository.findAll();
+    public List<ExibirUsuario> listarUsuario(){
+        List<UsuarioModel> usuario = usuarioRepository.findAll();
+        return ExibirUsuario.convert(usuario);
     }
     public Optional<UsuarioModel> buscarPorId(Integer id ){
         return usuarioRepository.findById(id);

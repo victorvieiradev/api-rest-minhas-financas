@@ -12,8 +12,11 @@ import java.util.Optional;
 public class ReceitaService {
     @Autowired
     private ReceitaRepository receitaRepository;
+    @Autowired
+    private ReceitaFactory receitaFactory;
     public ReceitaModel salvar(ReceitaModel receitaModel){
-        return receitaRepository.save(receitaModel);
+        var receita = receitaFactory.desconto(receitaModel);
+        return receitaRepository.save(receita);
     }
     public List<ReceitaModel> exibir(){
         return receitaRepository.findAll();
