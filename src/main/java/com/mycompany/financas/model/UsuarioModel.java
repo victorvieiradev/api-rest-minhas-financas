@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,7 +27,6 @@ public class UsuarioModel {
     @Column(nullable = false, unique = true, length = 11)
     @CPF
     private String cpf;
-
-
-
+    @OneToMany
+    private List<ReceitaModel> receita;
 }

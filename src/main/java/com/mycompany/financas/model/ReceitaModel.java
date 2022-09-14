@@ -19,6 +19,8 @@ public class ReceitaModel {
     private LocalDate dataDeVencimento;
     private LocalDate dataDeRecebimento;
     private StatusEnum status;
-
+    @ManyToOne
+    //@JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private UsuarioModel usuario;
 
 }

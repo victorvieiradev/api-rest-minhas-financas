@@ -3,8 +3,12 @@ package com.mycompany.financas.model;
 import lombok.Data;
 
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
+
 @Data
 public class UsuarioDto {
     @NotBlank
@@ -15,5 +19,4 @@ public class UsuarioDto {
     private String email;
     @NotBlank
     private String cpf;
-
 }
