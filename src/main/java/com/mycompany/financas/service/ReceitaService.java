@@ -1,5 +1,6 @@
 package com.mycompany.financas.service;
 
+import com.mycompany.financas.model.RecebimentoEnum;
 import com.mycompany.financas.model.ReceitaModel;
 import com.mycompany.financas.model.StatusEnum;
 import com.mycompany.financas.repository.ReceitaRepository;
@@ -30,5 +31,8 @@ public class ReceitaService {
     }
     public List<ReceitaModel> buscarPorStatus(StatusEnum status ){
         return receitaRepository.findByStatus(status);
+    }
+    public List<ReceitaModel> buscarPorTipoRecebimento(RecebimentoEnum recebimento ){
+        return receitaRepository.findByRecebimento(recebimento);
     }
 }

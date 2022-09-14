@@ -1,5 +1,6 @@
 package com.mycompany.financas.controller;
 
+import com.mycompany.financas.model.RecebimentoEnum;
 import com.mycompany.financas.model.ReceitaDto;
 import com.mycompany.financas.model.ReceitaModel;
 import com.mycompany.financas.model.StatusEnum;
@@ -72,5 +73,8 @@ public class ReceitaController {
     @GetMapping(path = "/pesquisa")
     public ResponseEntity<List<ReceitaModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum status ){
     return ResponseEntity.status(HttpStatus.OK).body(receitaService.buscarPorStatus(status));
+    }
+    public ResponseEntity<List<ReceitaModel>> buscarPorTipoRecebimento(@RequestParam(value = "recebimento", defaultValue = "", required = true)RecebimentoEnum recebimento ){
+        return ResponseEntity.status(HttpStatus.OK).body(receitaService.buscarPorTipoRecebimento(recebimento));
     }
 }
