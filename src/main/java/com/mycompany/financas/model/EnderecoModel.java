@@ -19,5 +19,8 @@ public class EnderecoModel {
     private String cep;
     @Column(nullable = false, length = 100)
     private String pontoReferencia;
-
+    @ManyToOne
+    private CidadeModel cidade;
+    @ManyToOne
+    private UsuarioModel usuario;
 }

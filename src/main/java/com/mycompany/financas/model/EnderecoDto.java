@@ -2,6 +2,7 @@ package com.mycompany.financas.model;
 
 import lombok.Data;
 
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 @Data
@@ -14,5 +15,9 @@ public class EnderecoDto {
     private String cep;
     @NotBlank
     private String pontoReferencia;
+    @ManyToOne
+    private CidadeModel cidade;
+    @ManyToOne
+    private UsuarioModel usuario;
 
 }

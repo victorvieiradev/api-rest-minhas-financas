@@ -28,5 +28,7 @@ public class UsuarioModel {
     @CPF
     private String cpf;
     @OneToMany
+    private List<EnderecoModel> endereco;
+    @OneToMany
     private List<ReceitaModel> receita;
 }
