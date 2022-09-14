@@ -69,4 +69,8 @@ public class ReceitaController {
         receitaService.excluir(receitaModelOptional.get());
         return ResponseEntity.status(HttpStatus.OK).body("Receita excluida.");
     }
+    @GetMapping(path = "/pesquisa")
+    public ResponseEntity<List<ReceitaModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum status ){
+    return ResponseEntity.status(HttpStatus.OK).body(receitaService.buscarPorStatus(status));
+    }
 }

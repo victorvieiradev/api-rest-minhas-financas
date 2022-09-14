@@ -1,6 +1,7 @@
 package com.mycompany.financas.service;
 
 import com.mycompany.financas.model.ReceitaModel;
+import com.mycompany.financas.model.StatusEnum;
 import com.mycompany.financas.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,8 @@ public class ReceitaService {
     }
     public void excluir(ReceitaModel receitaModel ){
         receitaRepository.delete(receitaModel);
+    }
+    public List<ReceitaModel> buscarPorStatus(StatusEnum status ){
+        return receitaRepository.findByStatus(status);
     }
 }
