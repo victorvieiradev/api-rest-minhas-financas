@@ -7,13 +7,13 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class EnderecoDto {
-    @NotBlank
+    @NotBlank(message = "O logradouro não pode estar em branco.")
     private String logradouro;
-    @NotBlank
+    @NotBlank(message = "O bairro não pode estar em branco.")
     private String bairro;
-    @NotBlank
+    @NotBlank(message = "O CEP não pode estar em branco.")
     private String cep;
-    @NotBlank
+    @NotBlank(message = "Ponto de referência não pode estar em branco.")
     private String pontoReferencia;
     @ManyToOne
     private CidadeModel cidade;

@@ -5,9 +5,9 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 @Data
 public class EstadoDto {
-    @NotBlank
+    @NotBlank(message = "O uf do estado não pode estar em branco.")
     private String uf;
-    @NotBlank
+    @NotBlank(message = "O nome do estado não pode estar em branco.")
     private String nomeEstado;
 
 }

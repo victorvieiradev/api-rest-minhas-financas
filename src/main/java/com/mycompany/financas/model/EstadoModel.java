@@ -16,7 +16,7 @@ public class EstadoModel {
     private String uf;
     @Column(nullable = false, unique = true, length = 50)
     private String nomeEstado;
-    @OneToMany
+    @OneToMany(mappedBy = "", cascade = CascadeType.ALL)
     private List<CidadeModel> cidade;
 
 }

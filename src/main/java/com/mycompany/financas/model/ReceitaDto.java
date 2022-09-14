@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class ReceitaDto {
     //@NotBlank
     private RecebimentoEnum recebimento;
-    //@NotBlank
+    //@NotBlank(message = "O valor não pode estar em branco.")
     private double valorRecebimento;
     //@NotBlank
     private LocalDate dataDeVencimento;

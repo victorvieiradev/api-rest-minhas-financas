@@ -11,12 +11,12 @@ import java.util.List;
 
 @Data
 public class UsuarioDto {
-    @NotBlank
+    @NotBlank(message = "O nome não pode ser nulo ou branco.")
     private String nomeUsuario;
     //@NotBlank
     private Date dataNascimento;
     @NotBlank
     private String email;
-    @NotBlank
+    @NotBlank(message = "O CPF não pode estar em branco.")
     private String cpf;
 }

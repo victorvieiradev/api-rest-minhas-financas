@@ -25,7 +25,7 @@ public class UsuarioModel {
     @Email
     private String email;
     @Column(nullable = false, unique = true, length = 11)
-    @CPF
+    @CPF(message = "Informe um CPF válido.")
     private String cpf;
     @OneToMany
     private List<EnderecoModel> endereco;
