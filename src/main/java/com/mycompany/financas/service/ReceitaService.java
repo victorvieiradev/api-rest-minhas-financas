@@ -7,6 +7,7 @@ import com.mycompany.financas.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +35,8 @@ public class ReceitaService {
     }
     public List<ReceitaModel> buscarPorTipoRecebimento(RecebimentoEnum recebimento ){
         return receitaRepository.findByRecebimento(recebimento);
+    }
+    public List<ReceitaModel> buscarPorData(LocalDate dataDeVencimento){
+        return receitaRepository.findBydataDeVencimento(dataDeVencimento);
     }
 }

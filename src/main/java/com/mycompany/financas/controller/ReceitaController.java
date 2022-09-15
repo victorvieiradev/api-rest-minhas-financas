@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +75,16 @@ public class ReceitaController {
     public ResponseEntity<List<ReceitaModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum status ){
     return ResponseEntity.status(HttpStatus.OK).body(receitaService.buscarPorStatus(status));
     }
+    @GetMapping(path = "/pesquisa/tipo/")
     public ResponseEntity<List<ReceitaModel>> buscarPorTipoRecebimento(@RequestParam(value = "recebimento", defaultValue = "", required = true)RecebimentoEnum recebimento ){
         return ResponseEntity.status(HttpStatus.OK).body(receitaService.buscarPorTipoRecebimento(recebimento));
     }
+
+    @GetMapping(path = "/pesquisa/{dataDeVencimento}")
+    public List<ReceitaModel> buscarPordataDeVencimento(@PathVariable String dataDeVencimento){
+        LocalDate ld1 = LocalDate.parse(dataDeVencimento, DateTimeFormatter.ISO_DATE);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return receitaService.buscarPorData(ld1);
+    }
+
 }
