@@ -71,11 +71,11 @@ public class ReceitaController {
         receitaService.excluir(receitaModelOptional.get());
         return ResponseEntity.status(HttpStatus.OK).body("Receita excluida.");
     }
-    @GetMapping(path = "/pesquisa")
+    @GetMapping(path = "/pesquisa/status")
     public ResponseEntity<List<ReceitaModel>> buscarPorStatus(@RequestParam(value = "status", defaultValue = "", required = true) StatusEnum status ){
     return ResponseEntity.status(HttpStatus.OK).body(receitaService.buscarPorStatus(status));
     }
-    @GetMapping(path = "/pesquisa/tipo/")
+    @GetMapping(path = "/pesquisa")
     public ResponseEntity<List<ReceitaModel>> buscarPorTipoRecebimento(@RequestParam(value = "recebimento", defaultValue = "", required = true)RecebimentoEnum recebimento ){
         return ResponseEntity.status(HttpStatus.OK).body(receitaService.buscarPorTipoRecebimento(recebimento));
     }
