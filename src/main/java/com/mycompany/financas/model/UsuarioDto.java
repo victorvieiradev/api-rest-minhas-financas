@@ -15,7 +15,7 @@ public class UsuarioDto {
     private String nomeUsuario;
     //@NotBlank
     private Date dataNascimento;
-    @NotBlank
+    @NotBlank(message = "O email não pode estar em branco.")
     private String email;
     @NotBlank(message = "O CPF não pode estar em branco.")
     private String cpf;

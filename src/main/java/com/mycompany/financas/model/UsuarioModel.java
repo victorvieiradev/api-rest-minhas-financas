@@ -22,7 +22,7 @@ public class UsuarioModel {
     @DateTimeFormat
     private Date dataNascimento;
     @Column(nullable = false, unique = true, length = 100)
-    @Email
+    @Email(message = "Informe um email válido.")
     private String email;
     @Column(nullable = false, unique = true, length = 11)
     @CPF(message = "Informe um CPF válido.")
